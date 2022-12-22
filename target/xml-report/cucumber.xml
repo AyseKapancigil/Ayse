@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="1" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="0.147">
+    <testcase classname="optimal_change_api" name="Submitting a value in pence and receiving optimal change" time="0.044">
+        <failure message="The scenario has pending or undefined step(s)" type="java.lang.Exception">
+            <![CDATA[Given user sends a get request for  submitting a value of "50122" pence with external ID "UUID_1".undefined
+When user retrieves the optimal change for the submitted value using the external ID.skipped
+And user converts json data to java.........................................skipped
+Then user should receive a response with the following information:.........skipped
+And user verifies the response contain external ID..........................skipped
+]]>
+        </failure>
+    </testcase>
+</testsuite>
