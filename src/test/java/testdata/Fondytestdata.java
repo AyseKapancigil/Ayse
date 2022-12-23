@@ -5,63 +5,67 @@ import java.util.Map;
 
 public class Fondytestdata {
     public static void main(String[] args) {
-
-      calculateOptimalChange();
+        System.out.println(getOptimalChange(50122));
     }
-   public Fondytestdata(){this.};
-    public  static void calculateOptimalChange() {
-        int remainingAmount = 50122;
+    public static Map<String, Map<String, Integer>> getOptimalChange(int pence) {
+        //  int pence= actualData.getPenceSubmitted();
+        Map<String, Map<String, Integer>> result = new HashMap<>();
         Map<String, Integer> pounds = new HashMap<>();
-        Map<String, Integer> pence = new HashMap<>();
+        Map<String, Integer> penceMap = new HashMap<>();
 
-        int numFiftyPounds = remainingAmount / 5000;
-        remainingAmount -= numFiftyPounds * 5000;
-        pounds.put("50", numFiftyPounds);
+        int[] poundValues = {50, 20, 10, 5, 2, 1};
+        int[] penceValues = {50, 20, 10, 5, 2, 1};
+        if (pence >= 0) {
+            for (int value : poundValues) {
+                int numCoins = pence / (value * 100);
+                if (numCoins > 0) {
+                    pounds.put(Integer.toString(value), numCoins);
+                    pence -= numCoins * value * 100;
+                } else {
+                    pounds.put(Integer.toString(value), 0);
+                }
+            }
 
-        int numTwentyPounds = remainingAmount / 2000;
-        remainingAmount -= numTwentyPounds * 2000;
-        pounds.put("20", numTwentyPounds);
+            for (int value : penceValues) {
+                int numCoins = pence / value;
+                if (numCoins > 0) {
+                    penceMap.put(Integer.toString(value), numCoins);
+                    pence -= numCoins * value;
+                } else {
+                    penceMap.put(Integer.toString(value), 0);
+                }
+            }
 
-        int numTenPounds = remainingAmount / 1000;
-        remainingAmount -= numTenPounds * 1000;
-        pounds.put("10", numTenPounds);
+            result.put("pounds", pounds);
+            result.put("pence", penceMap);
 
-        int numFivePounds = remainingAmount / 500;
-        remainingAmount -= numFivePounds * 500;
-        pounds.put("5", numFivePounds);
-
-        int numTwoPounds = remainingAmount / 200;
-        remainingAmount -= numTwoPounds * 200;
-        pounds.put("2", numTwoPounds);
-
-        int numOnePounds = remainingAmount / 100;
-        remainingAmount -= numOnePounds * 100;
-        pounds.put("1", numOnePounds);
-
-        int numFiftyPence = remainingAmount / 50;
-        remainingAmount -= numFiftyPence * 50;
-        pence.put("50", numFiftyPence);
-
-        int numTwentyPence = remainingAmount / 20;
-        remainingAmount -= numTwentyPence * 20;
-        pence.put("20", numTwentyPence);
-
-        int numTenPence = remainingAmount / 10;
-        remainingAmount -= numTenPence * 10;
-        pence.put("10", numTenPence);
-
-        int numFivePence = remainingAmount / 5;
-        remainingAmount -= numFivePence * 5;
-        pence.put("5", numFivePence);
-
-        int numTwoPence = remainingAmount / 2;
-        remainingAmount -= numTwoPence * 2;
-        pence.put("2", numTwoPence);
-
-        int numOnePence = remainingAmount;
-        pence.put("1", numOnePence);
+        } else {
+            System.out.println("Your pence should be equals or  greater then 0");
+        }
+        return result;
+    }
 
 
     }
-}
 
+/*
+This code defines a method getOptimalChange that takes an integer value pence as an argument and returns a Map containing
+ the optimal change in pounds and pence.
+
+The getOptimalChange method first creates two empty Maps, pounds and penceMap, to store the optimal change in pounds and pence,
+respectively. It also defines two arrays of integer values, poundValues and penceValues, which contain the available pound and pence denominations.
+
+The method then checks if the value of pence is greater than or equal to 0. If it is, the method loops through each value
+in the poundValues array and calculates the number of coins of that denomination needed to make the optimal change.
+The number of coins is calculated by dividing the remaining pence by the value of the coin…
+ The method then updates the pounds Map by adding an entry with the value of the coin as the key and the number of coins as the value.
+ It also subtracts the value of the coins from the remaining pence. This process is repeated for each value in the poundValues array.
+
+The method then does the same thing for the penceValues array, calculating the number of coins of each denomination
+ needed to make the optimal change in pence and updating the penceMap Map accordingly.
+
+Finally, the method puts the pounds and penceMap Maps into the result Map and returns it.
+ The getOptimalChange method calculates the optimal change for this value and returns a Map containing the optimal change in pounds and pence.
+  The main method then prints the returned Map to the console.
+
+ */

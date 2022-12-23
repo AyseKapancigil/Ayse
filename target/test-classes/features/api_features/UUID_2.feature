@@ -1,8 +1,8 @@
   Feature:optimal_change_api
   Scenario Outline:external_id
-     Given user sends a get request for optimal change with "<external
-      When user converts json data to java
-      Then user verifies the response contain external ID
+     Given user sends a get request for optimal change with "<externalID>"
+      When user converts json data to java for deserilization
+      Then user verifies the response data
     Examples: data
-    |external ID|
-    |UU
+    |externalID|
+    |UUID_1    |

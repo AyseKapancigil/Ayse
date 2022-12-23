@@ -17,13 +17,13 @@ public class Hooks {
 
     public void tearDown(Scenario scenario) {
         System.out.println("After Hooks");
-        //Adding Reports that is generated when a scenario fails.
+
         if (scenario.isFailed()) {
             final byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", "failed_scenario");
             Driver.getDriver().quit();
 
-            //main functionality is creating better report
+
         }
     }
 }

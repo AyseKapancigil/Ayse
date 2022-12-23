@@ -1,0 +1,123 @@
+API TEST PLAN
+
+This is my approach to test suit design
+Designing test suite to test the functionality, with edge case covered.
+To design a test suite to test the functionality of a system and cover edge cases, you can follow these steps:
+Identify the functionalities of the system: First, you need to understand what the system does and
+what functionalities it has.
+This will help you to determine what to test and what edge cases to consider.
+Writing test cases: Next, you can write test cases to cover the various functionalities of the system.
+These test cases should include both positive and negative tests, as well as covering edge cases.
+Execution of the test suite: Once you have written the test cases, you can execute the test suite to see
+how the system performs.
+This will help you to identify any issues or bugs that need to be assigned.
+Analysing the results: After executing the test suite, you can analyse the results to see how the system behaves.
+This will help you to understand any areas where the system is not functioning as expected and identify any issues
+that need to be fixed.
+Iterate and improve: You can then iterate on the test suite, adding or modifying test cases as needed to ensure that the
+system is tested and all edge cases are covered. This can help you improve the reliability and stability of the system.
+
+Functional Testing
+
+Let’s assume this is a part of our swagger documentation which include /optimalChange endpoint and following API calls.
+
+API calls                                                             Actions
+
+Get /api/optimalChange                                               Get all optimalChange
+Get/api/optimalChange/{id}                                           Get optimalChange by id
+Post/api/optimalChange /request                                      Create optimalChange
+
+
+Positive Test (Happy Paths)
+
+Execute API calls with valid required parameters.
+-Verify valid path, query parameters send to valid url
+-Verify user generate appropriate token for authorization.
+-Validate status code.
+All requests should return 2XX HTTP status code.
+200 OK for Get requests, 201 Created for Post requests.
+- Validate response payload.
+Payload (Request body) is JSON object.
+-Verify to convert JSON object to Java (De-serialization)
+-Verify expected data and actual data are matching.
+-Validate response headers.
+-Verify that HTTP headers (content-type, cache-control, connection...) are as expected.
+
+-Performance
+Verify if the response received within reasonable expected time.
+
+Test case1: valid_input_returns_optimal_change
+Description: This test case verifies that the system correctly returns the optimal change for a valid input of pence and
+an external ID.
+|Input|
+|50122| pence, "UUID_1"  (Equivalance Partioning) (Equivalance class-valid)
+|123456789| I assume is the max value (Boundary value analysis)
+
+Test case2: zero_pence_input_returns_zero_change
+Description: This test case verifies that the system correctly returns zero change when the input value is 0 pence.
+|Input|
+|0| I assume is the min value (Boundary value analysis)
+|-1| |0| |1| ( 3 point boundary value analysis)
+
+
+Negative Test
+
+ Execute API calls with invalid input.
+-Missing required parameters, endpoints, query parameters.
+-Missing or invalid authorization token.
+-Invalid request JSON body and verify that response status code is not 2XX.
+-Incomplete, missing payload.
+-Invalid HTTP headers.
+-Payload contains error message (for example there are 100 ids numbered from 1 to 100 I send 101 as a parameter and
+I should be able to see 404 Not Found The requested resource was not found.)
+
+ Execute API calls with valid input.
+-Try to create a data with already exist id.
+
+Test case3: Invalid inputs
+Description: This test case verifies that the system user should be able to see an 4XX error message
+|Input|
+|-3456| (Equivalance Partioning) (Equivalance class-invalid)
+
+
+Destructive Testing
+Intentionally attempt to fail the API to check the quality and the condition.
+-Wrong content type in payload.
+-Content with wrong structure.
+-Empty payloads.
+-Incorrect HTTP headers.
+-Try to get an optimalChange with invalid id.
+-Illegal characters in parameters or payloads.
+
+API should be able to fail.
+
+
+Test case4: Illegal characters
+Description: This test case verifies that the system user should be able to see an 4XX error message
+|Input|
+|#2345|
+|564er|
+
+
+NON-FUNCTIONAL TESTING
+
+Authorization, Security
+-Ensure API responds to correct, agreed authorization type. (Bearer Token)
+-Ensure API refuses all unauthorized calls.
+-Check status code. (HTTP, HTTPS)
+-Ensure specific endpoints only will be accessible by specific roles. (Admin, Seller, Buyer...)
+
+Performance
+-Check API response time in different scenarios. (JMeter)
+
+Load Test, Stress Test
+-Ensure system working as expected under load according to capacity limit and fails as expected under stress.
+
+This is not a real-life test plan documentation as I do not have a related necessary document like BRD,Swagger
+Document etc...
+It based on my own assumptions.
+
+
+
+
+
